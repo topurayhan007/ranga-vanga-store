@@ -21,19 +21,21 @@ const showProducts = (products) => {
   for (const product of allProducts) {
     const image = product.image;
     const div = document.createElement("div");
-    div.classList.add("product");
-    div.innerHTML = `<div class="single-product">
-      <div>
-    <img class="product-image" src=${image}></img>
-      </div>
-      <h3>${product.title}</h3>
-      <p>Category: ${product.category}</p>
-      <h2>Price: $ ${product.price}</h2>
+    div.classList.add("col");
+    div.innerHTML = `<div class="card h-100 single-product">
+    <img class="d-block mx-auto product-image" src=${image}>
+      <div class="card-body position-relative">
+         <h5 class="card-title">${product.title}</h5>
+         <p class"card-text">Category: ${product.category}</p>
+         <h5 class="" style="margin-bottom: 5.5rem;">Price: $ ${product.price}</h5>
 
-      <button onclick="showProductDetails(${product.id})" id="details-btn"    data-bs-toggle="modal"
-      data-bs-target="#exampleModal" class="btn btn-outline-secondary mb-2 rounded-1 mt-1">Details</button>
-      
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success border-0 w-100 rounded-0 bg-main py-2">Add to cart</button>
+         <div class="position-absolute w-100 bottom-0 start-50 translate-middle-x">
+            <button onclick="showProductDetails(${product.id})" id="details-btn"    data-bs-toggle="modal"
+            data-bs-target="#exampleModal" class="btn btn-outline-secondary mb-2 w-100 rounded-1 mt-1">Details</button>
+            
+            <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success border-0 w-100 rounded-1 bg-main py-2">Add to cart</button>
+            </div>
+         </div>
       `;
     document.getElementById("all-products").appendChild(div);
   }

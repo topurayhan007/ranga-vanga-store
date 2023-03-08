@@ -17,7 +17,7 @@ const showProducts = (products) => {
 
   document.getElementById("all-products").innerHTML = "";
 
-  const allProducts = products.slice(0, 10).map((pd) => pd);
+  const allProducts = products.slice(0, 20).map((pd) => pd);
   for (const product of allProducts) {
     const image = product.image;
     const div = document.createElement("div");
@@ -44,8 +44,9 @@ let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
   updatePrice("price", price);
-
   updateTaxAndCharge();
+  updateTotal();
+
   document.getElementById("total-Products").innerText = count;
 };
 
@@ -88,15 +89,15 @@ const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
-    setInnerText("total-tax", priceConverted * 0.2);
+    setInnerText("total-tax", (priceConverted * 0.2).toFixed(2));
   }
   if (priceConverted > 400) {
     setInnerText("delivery-charge", 50);
-    setInnerText("total-tax", priceConverted * 0.3);
+    setInnerText("total-tax", (priceConverted * 0.3).toFixed(2));
   }
   if (priceConverted > 500) {
     setInnerText("delivery-charge", 60);
-    setInnerText("total-tax", priceConverted * 0.4);
+    setInnerText("total-tax", (priceConverted * 0.4).toFixed(2));
   }
 };
 
@@ -106,14 +107,14 @@ const updateTotal = () => {
     getInputValue("price") +
     getInputValue("delivery-charge") +
     getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+  document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
 
 // search by category
 document.getElementById("search-btn").addEventListener("click", function () {
   const inputField = document.getElementById("input-value").value;
-  const searchedProduct = arr[0].find((p) =>
-    p.category.startsWith(`${inputField}`)
+  const searchedProduct = arr[0].filter((p) =>
+    p.title.includes(`${inputField}`)
   );
   showProducts(searchedProduct);
 });
